@@ -1,0 +1,7 @@
+CREATE SEQUENCE tracker_id_seq START WITH 1;
+CREATE TABLE tracker
+(
+  id INTEGER PRIMARY KEY NOT NULL,
+  tracker_name VARCHAR(255) NOT NULL,
+  tracker_slug VARCHAR(255) NOT NULL
+);
