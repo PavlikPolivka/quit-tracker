@@ -22,3 +22,22 @@ spring:
 
 management:
   context-path: /manage
+---
+spring:
+  profiles: openshift
+  datasource:
+    url: jdbc:postgresql://${OPENSHIFT_POSTGRESQL_DB_HOST}:${OPENSHIFT_POSTGRESQL_DB_PORT}/${OPENSHIFT_APP_NAME}
+    username: ${OPENSHIFT_POSTGRESQL_DB_USERNAME}
+    password: ${OPENSHIFT_POSTGRESQL_DB_PASSWORD}
+  thymeleaf:
+    cache: true
+
+security:
+  oauth2:
+    client:
+      clientSecret: ${GOOGLE_SECRET}
+
+logging:
+  file: ${OPENSHIFT_DIY_LOG_DIR}/tracker.log
+  level: info
+
