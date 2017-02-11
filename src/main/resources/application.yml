@@ -1,0 +1,24 @@
+security:
+  oauth2:
+    client:
+      clientId: 539913688449-662gsf3b7uuu1m8j4dlt10hbftjfi7mt.apps.googleusercontent.com
+      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+      clientAuthenticationScheme: form
+      scope:
+        - openid
+        - email
+        - profile
+    resource:
+      userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+      preferTokenInfo: true
+
+spring:
+  datasource:
+    platform: hsqldb
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+
+management:
+  context-path: /manage
