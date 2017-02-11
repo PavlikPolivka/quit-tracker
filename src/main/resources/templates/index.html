@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/styles/tracker.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Quit Tracker</title>
 </head>
@@ -28,19 +30,109 @@
                 <a href="/login">Google Login</a>
             </li>
             <li sec:authorize="isAuthenticated()">
-                <div th:text="${user.getUserName()}">
+                <a href="#" th:text="${user.getUserName()}">
                     Username
-                </div>
+                </a>
             </li>
         </ul>
     </div>
 </nav>
-<div class="section">
+<main>
+    <div class="container">
 
-</div>
-<footer></footer>
+        <!--/*@thymesVar id="formClass" type="java.lang.String"*/-->
+        <div id="add" th:class="${formClass}">
+            <!--/*@thymesVar id="trackerForm" type="com.ppolivka.quittracker.form.TrackerForm"*/-->
+            <form class="col s12" th:object="${trackerForm}" th:action="@{/}" method="post">
+                <div class="row">
+                    <h4>Add new tracker</h4>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Pavel Polivka" id="who" type="text" th:class="${#fields.hasErrors('who')}? invalid" th:field="*{who}">
+                        <label for="who" th:attr="data-error=${#fields.errors('who')}">Who?</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Smoking" id="what" type="text" th:field="*{what}" th:class="${#fields.hasErrors('what')}? invalid">
+                        <label for="what" th:attr="data-error=${#fields.errors('what')}">What?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="when" type="date" class="datepicker" th:field="*{when}" th:class="${#fields.hasErrors('when')}? 'invalid datepicker' : 'datepicker'">
+                        <label for="when" th:attr="data-error=${#fields.errors('when')}">When?</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="pavel.polivka" id="url" type="text" th:field="*{url}" th:class="${#fields.hasErrors('url')}? invalid">
+                        <label for="url" th:attr="data-error=${#fields.errors('url')}">Url?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="waves-effect waves-light btn">Add</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="section my-trackers" sec:authorize="isAuthenticated()">
+            <h4>My Trackers</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th data-field="what">What</th>
+                    <th data-field="date">Started date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Alvin</td>
+                    <td>Eclair</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section recent-trackers">
+            <h4>Recent Trackers</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th data-field="who">Who</th>
+                    <th data-field="what">What</th>
+                    <th data-field="when">When</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Alvin</td>
+                    <td>Eclair</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="fixed-action-btn" sec:authorize="isAuthenticated()">
+            <a class="btn-floating btn-large waves-effect waves-light red" href="#" id="addButton"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+</main>
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            ©
+            <span th:text="${#dates.format(#dates.createNow(),'YYYY')}">
+            2017
+            </span>
+            Pavel Polivka, All rights reserved.
+        </div>
+    </div>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="/scripts/tracker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 </body>
 </html>
