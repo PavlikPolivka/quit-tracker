@@ -1,4 +1,4 @@
-package com.ppolivka.quittracker.form;
+package com.ppolivka.quittracker.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

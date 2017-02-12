@@ -1,6 +1,6 @@
 package com.ppolivka.quittracker.util;
 
-import com.ppolivka.quittracker.model.User;
+import com.ppolivka.quittracker.dto.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

@@ -1,7 +1,8 @@
 package com.ppolivka.quittracker.controller;
 
-import com.ppolivka.quittracker.form.TrackerForm;
-import com.ppolivka.quittracker.model.User;
+import com.ppolivka.quittracker.dto.TrackerForm;
+import com.ppolivka.quittracker.dto.User;
+import com.ppolivka.quittracker.service.TrackerService;
 import com.ppolivka.quittracker.util.UserUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class HomeController {
     private final Logger logger = Logger.getLogger(HomeController.class);
 
     private final UserUtil userUtil;
+    private final TrackerService trackerService;
 
     @ModelAttribute
     public TrackerForm trackerForm() {
@@ -33,24 +35,35 @@ public class HomeController {
     }
 
     @Autowired
-    public HomeController(UserUtil userUtil) {
+    public HomeController(UserUtil userUtil, TrackerService trackerService) {
         this.userUtil = userUtil;
+        this.trackerService = trackerService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHomePage(Model model) {
-        Optional<User> user =  userUtil.getUser();
-        user.ifPresent(user1 -> model.addAttribute("user", user1));
         model.addAttribute("formClass", "hidden");
+        fillModel(model);
         return "index";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String addTracker(@ModelAttribute("trackerForm") @Valid TrackerForm trackerForm, BindingResult bindingResult, Model model) {
-        Optional<User> user =  userUtil.getUser();
-        user.ifPresent(user1 -> model.addAttribute("user", user1));
-        model.addAttribute("formClass", "show");
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("formClass", "show");
+        } else {
+            model.addAttribute("formClass", "hidden");
+            trackerService.addNewTracker(trackerForm);
+        }
+        fillModel(model);
         return "index";
+    }
+
+    private void fillModel(Model model) {
+        Optional<User> userOptional =  userUtil.getUser();
+        userOptional.ifPresent(user -> model.addAttribute("user", user));
+        userOptional.ifPresent(user -> model.addAttribute("myTrackers", trackerService.listMyTrackers()));
+        model.addAttribute("recentTrackers", trackerService.listRecentTrackers());
     }
 
 }

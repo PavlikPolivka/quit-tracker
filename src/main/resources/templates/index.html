@@ -9,7 +9,7 @@
     <title>Quit Tracker</title>
 </head>
 <body>
-<!--/*@thymesVar id="user" type="com.ppolivka.quittracker.model.User"*/-->
+<!--/*@thymesVar id="user" type="com.ppolivka.quittracker.dto.User"*/-->
 
 <nav>
     <div class="nav-wrapper container">
@@ -42,7 +42,7 @@
 
         <!--/*@thymesVar id="formClass" type="java.lang.String"*/-->
         <div id="add" th:class="${formClass}">
-            <!--/*@thymesVar id="trackerForm" type="com.ppolivka.quittracker.form.TrackerForm"*/-->
+            <!--/*@thymesVar id="trackerForm" type="com.ppolivka.quittracker.dto.TrackerForm"*/-->
             <form class="col s12" th:object="${trackerForm}" th:action="@{/}" method="post">
                 <div class="row">
                     <h4>Add new tracker</h4>
@@ -83,9 +83,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
+                <!--/*@thymesVar id="myTrackers" type="java.util.List"*/-->
+                <tr th:each="tracker : ${myTrackers}">
+                    <!--/*@thymesVar id="tracker" type="com.ppolivka.quittracker.model.Tracker"*/-->
+                    <td th:text="${tracker.getItem()}">Smoking</td>
+                    <td th:text="${tracker.getStopDate()}">02/03/14</td>
                 </tr>
                 </tbody>
             </table>
@@ -104,9 +106,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
+                <!--/*@thymesVar id="recentTrackers" type="java.util.List"*/-->
+                <tr th:each="tracker: ${recentTrackers}">
+                    <!--/*@thymesVar id="tracker" type="com.ppolivka.quittracker.model.Tracker"*/-->
+                    <td th:text="${tracker.getName()}">Pavel</td>
+                    <td th:text="${tracker.getItem()}">Smoking</td>
+                    <td th:text="${tracker.getStopDate()}">02/03/14</td>
                 </tr>
                 </tbody>
             </table>

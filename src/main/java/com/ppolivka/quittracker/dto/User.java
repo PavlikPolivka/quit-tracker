@@ -1,4 +1,4 @@
-package com.ppolivka.quittracker.model;
+package com.ppolivka.quittracker.dto;
 
 public class User {
 
