@@ -4,11 +4,14 @@ import com.ppolivka.quittracker.dto.TrackerForm;
 import com.ppolivka.quittracker.dto.User;
 import com.ppolivka.quittracker.service.TrackerService;
 import com.ppolivka.quittracker.util.UserUtil;
+import com.ppolivka.quittracker.validator.TrackerValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +26,7 @@ public class HomeController {
 
     private final UserUtil userUtil;
     private final TrackerService trackerService;
+    private final TrackerValidator trackerValidator;
 
     @ModelAttribute
     public TrackerForm trackerForm() {
@@ -35,9 +39,15 @@ public class HomeController {
     }
 
     @Autowired
-    public HomeController(UserUtil userUtil, TrackerService trackerService) {
+    public HomeController(UserUtil userUtil, TrackerService trackerService, TrackerValidator trackerValidator) {
         this.userUtil = userUtil;
         this.trackerService = trackerService;
+        this.trackerValidator = trackerValidator;
+    }
+
+    @InitBinder("trackerForm")
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(trackerValidator);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

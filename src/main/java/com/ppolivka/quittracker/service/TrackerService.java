@@ -13,4 +13,6 @@ public interface TrackerService {
 
     List<Tracker> listRecentTrackers();
 
+    Tracker getTrackerByUrl(String url);
+
 }

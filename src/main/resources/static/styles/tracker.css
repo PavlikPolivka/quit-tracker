@@ -24,3 +24,12 @@ input:not([type]).invalid+label:after, input:not([type]):focus.invalid+label:aft
     opacity: 1;
     width: 60vh; !important;
 }
+
+.trackerBadge {
+    margin-top: 10%;
+    padding: 20%;
+    font-size: xx-large;
+    color: #CCE;
+    border: 3px dashed #ccc;
+    text-align: center;
+}

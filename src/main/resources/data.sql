@@ -1,0 +1,1 @@
+insert into tracker (id, tracker_name, tracker_slug, tracker_item, tracker_owner, tracker_stop_date, tracker_created_date) values (666, 'name', 'polivka', 'smoking', 'aaa', current_timestamp , current_timestamp);

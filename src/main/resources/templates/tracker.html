@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/styles/tracker.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Quit Tracker</title>
+</head>
+<body>
+<!--/*@thymesVar id="tracker" type="com.ppolivka.quittracker.model.Tracker"*/-->
+<!--/*@thymesVar id="diff" type="java.lang.String"*/-->
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="s12 m4 l2"></div>
+            <div class="s12 m4 l8 trackerBadge">
+                <div>
+                    <span th:text="${tracker.getName()}">Pavel</span>
+                    <span> quit </span>
+                    <span th:text="${tracker.getItem()}">smoking</span>
+                </div>
+                <div>
+                    <span th:text="${diff}" id="dateString">1 month</span>
+                    <span> ago!</span>
+                </div>
+            </div>
+            <div class="s12 m4 l2"></div>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a href="/">Quit Tracker!</a>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="/scripts/trackerPage.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+</body>
+</html>

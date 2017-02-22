@@ -86,7 +86,7 @@
                 <!--/*@thymesVar id="myTrackers" type="java.util.List"*/-->
                 <tr th:each="tracker : ${myTrackers}">
                     <!--/*@thymesVar id="tracker" type="com.ppolivka.quittracker.model.Tracker"*/-->
-                    <td th:text="${tracker.getItem()}">Smoking</td>
+                    <td><a th:href="${tracker.getSlug()}" th:text="${tracker.getItem()}">Smoking</a></td>
                     <td th:text="${tracker.getStopDate()}">02/03/14</td>
                 </tr>
                 </tbody>
@@ -109,8 +109,8 @@
                 <!--/*@thymesVar id="recentTrackers" type="java.util.List"*/-->
                 <tr th:each="tracker: ${recentTrackers}">
                     <!--/*@thymesVar id="tracker" type="com.ppolivka.quittracker.model.Tracker"*/-->
-                    <td th:text="${tracker.getName()}">Pavel</td>
-                    <td th:text="${tracker.getItem()}">Smoking</td>
+                    <td><a th:href="${tracker.getSlug()}" th:text="${tracker.getName()}">Pavel</a></td>
+                    <td><a th:href="${tracker.getSlug()}" th:text="${tracker.getItem()}">Smoking</a></td>
                     <td th:text="${tracker.getStopDate()}">02/03/14</td>
                 </tr>
                 </tbody>

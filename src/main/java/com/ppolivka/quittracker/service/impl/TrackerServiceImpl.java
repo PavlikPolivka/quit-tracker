@@ -64,4 +64,10 @@ public class TrackerServiceImpl implements TrackerService {
     public List<Tracker> listRecentTrackers() {
         return trackerRepository.findFirst5ByOrderByCreatedDateDesc();
     }
+
+    @Override
+    @Transactional
+    public Tracker getTrackerByUrl(String url) {
+        return trackerRepository.findBySlug(url);
+    }
 }
