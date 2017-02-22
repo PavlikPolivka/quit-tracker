@@ -30,7 +30,7 @@ public class TrackerController {
         this.trackerService = trackerService;
     }
 
-    @RequestMapping(value = "/{trackerUrl}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{trackerUrl:.+}", method = RequestMethod.GET)
     public String showTracker(@PathVariable("trackerUrl") String trackerUrl, Model model) {
 
         Tracker tracker = trackerService.getTrackerByUrl(trackerUrl);
