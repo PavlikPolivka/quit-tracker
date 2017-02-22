@@ -44,7 +44,6 @@ public class TrackerController {
         LocalDateTime now = now();
         String diffString = diffDates(stopped, now);
         model.addAttribute("diff", diffString);
-
         return "tracker";
     }
 
