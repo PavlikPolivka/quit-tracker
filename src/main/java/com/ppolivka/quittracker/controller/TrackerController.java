@@ -83,7 +83,7 @@ public class TrackerController {
 
         long seconds = tempDateTime.until(now, ChronoUnit.SECONDS);
 
-        return years + " years " + months + " months " + days + " days " + minutes + " minutes ";
+        return years + " years " + months + " months " + days + " days " + hours + " hours " + minutes + " minutes ";
     }
 
 
