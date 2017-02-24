@@ -15,4 +15,6 @@ public interface TrackerService {
 
     Tracker getTrackerByUrl(String url);
 
+    void delete(Tracker tracker);
+
 }

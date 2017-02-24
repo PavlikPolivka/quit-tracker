@@ -70,4 +70,9 @@ public class TrackerServiceImpl implements TrackerService {
     public Tracker getTrackerByUrl(String url) {
         return trackerRepository.findBySlug(url);
     }
+
+    @Override
+    public void delete(Tracker tracker) {
+        trackerRepository.delete(tracker);
+    }
 }

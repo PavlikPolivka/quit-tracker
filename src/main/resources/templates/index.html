@@ -80,6 +80,7 @@
                 <tr>
                     <th data-field="what">What</th>
                     <th data-field="date">Started date</th>
+                    <th data-field="action">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -88,6 +89,7 @@
                     <!--/*@thymesVar id="tracker" type="com.ppolivka.quittracker.model.Tracker"*/-->
                     <td><a th:href="${tracker.getSlug()}" th:text="${tracker.getItem()}">Smoking</a></td>
                     <td th:text="${tracker.getStopDate()}">02/03/14</td>
+                    <td><a th:href="@{/__${tracker.getSlug()}__/delete}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

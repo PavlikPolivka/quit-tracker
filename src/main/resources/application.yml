@@ -24,7 +24,7 @@ management:
   context-path: /manage
 
 quit-tracker:
-  date-format: mm/dd/yyyy
+  date-format: MM/dd/yyyy
 ---
 spring:
   profiles: openshift

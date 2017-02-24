@@ -62,8 +62,8 @@ public class HomeController {
         if(bindingResult.hasErrors()) {
             model.addAttribute("formClass", "show");
         } else {
-            model.addAttribute("formClass", "hidden");
             trackerService.addNewTracker(trackerForm);
+            return "redirect:/";
         }
         fillModel(model);
         return "index";

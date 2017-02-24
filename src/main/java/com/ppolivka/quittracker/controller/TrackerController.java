@@ -3,7 +3,9 @@ package com.ppolivka.quittracker.controller;
 import com.ppolivka.quittracker.exception.ResourceNotFoundException;
 import com.ppolivka.quittracker.model.Tracker;
 import com.ppolivka.quittracker.service.TrackerService;
+import com.ppolivka.quittracker.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +26,12 @@ import static java.time.LocalDateTime.ofInstant;
 public class TrackerController {
 
     private final TrackerService trackerService;
+    private final UserUtil userUtil;
 
     @Autowired
-    public TrackerController(TrackerService trackerService) {
+    public TrackerController(TrackerService trackerService, UserUtil userUtil) {
         this.trackerService = trackerService;
+        this.userUtil = userUtil;
     }
 
     @RequestMapping(value = "/{trackerUrl:.+}", method = RequestMethod.GET)
@@ -62,6 +66,20 @@ public class TrackerController {
         return json;
     }
 
+    @RequestMapping(value = "/{trackerUrl}/delete", method = RequestMethod.GET)
+    @Secured("ROLE_USER")
+    public String getTrackerTime(@PathVariable("trackerUrl") String trackerUrl) {
+        Tracker tracker = trackerService.getTrackerByUrl(trackerUrl);
+
+        if (tracker == null && !tracker.getOwner().equals(userUtil.getUser().get().getUserId())) {
+            throw new ResourceNotFoundException();
+        }
+
+        trackerService.delete(tracker);
+
+        return "redirect:/";
+    }
+
     private String diffDates(LocalDateTime stopped, LocalDateTime now) {
         LocalDateTime tempDateTime = LocalDateTime.from(stopped);
 
@@ -81,9 +99,21 @@ public class TrackerController {
         long minutes = tempDateTime.until(now, ChronoUnit.MINUTES);
         tempDateTime = tempDateTime.plusMinutes(minutes);
 
-        long seconds = tempDateTime.until(now, ChronoUnit.SECONDS);
+        StringBuilder date = new StringBuilder();
+        addPart(years, date, " years ");
+        addPart(months, date, " months ");
+        addPart(days, date, " days ");
+        addPart(hours, date, " hours ");
+        addPart(minutes, date, " minutes ");
 
-        return years + " years " + months + " months " + days + " days " + hours + " hours " + minutes + " minutes ";
+        return date.toString();
+    }
+
+    private void addPart(long months, StringBuilder date, String str) {
+        if (months != 0) {
+            date.append(months);
+            date.append(str);
+        }
     }
 
 
